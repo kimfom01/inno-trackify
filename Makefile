@@ -1,5 +1,11 @@
-install:
-	poetry install
+help:             ## Show the help.
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Targets:"
+	@fgrep "##" Makefile | fgrep -v fgrep
+
+install:          ## Install the project in dev mode.
+	poetry install --no-root
 
 run-server: install
 	cd ./backend && poetry run uvicorn app.main:app --reload
