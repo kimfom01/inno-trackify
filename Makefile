@@ -1,3 +1,6 @@
+.ONESHELL:
+ENV_PREFIX=$(shell python -c "if __import__('pathlib').Path('.venv/bin/pip').exists(): print('.venv/bin/')")
+
 help:             ## Show the help.
 	@echo "Usage: make <target>"
 	@echo ""
@@ -18,6 +21,6 @@ run: install
 	poetry run streamlit run frontend/app.py
 
 lint: install ## Run pep8, black linters.
-	flake8 backend/ frontend/ || true
-	black -l 79 --check backend/ || true
-	black -l 79 --check frontend/ || true
+	@$(ENV_PREFIX)flake8 backend/ frontend/ || true
+	@$(ENV_PREFIX)black -l 79 --check backend/ || true
+	@$(ENV_PREFIX)black -l 79 --check frontend/ || true
