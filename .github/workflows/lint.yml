@@ -9,23 +9,12 @@ name: lint
       - main
 
 jobs:
-  linter:
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: [3.11]
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+  lint-job:
+    name: lint code
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Run image
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: '1.7.1'
-      - name: Install project
-        run: make install
-      - name: Run linter
-        run: make lint
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: wemake-python-styleguide
+        uses: wemake-services/wemake-python-styleguide@0.19.2
