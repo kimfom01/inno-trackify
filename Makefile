@@ -1,5 +1,11 @@
-install:
-	poetry install
+help:             ## Show the help.
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Targets:"
+	@fgrep "##" Makefile | fgrep -v fgrep
+
+install:          ## Install the project in dev mode.
+	poetry install --no-root
 
 create-db: install
 	sqlite3 inno-trackify.db < ./migrations/init.sql
