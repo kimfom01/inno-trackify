@@ -1,13 +1,9 @@
 from fastapi import FastAPI
 from .api import activities, users
-from .database import create_tables
 
 app = FastAPI()
 
-# Создаем таблицы в базе данных
-create_tables()
-
-# Подключаем роуты для активностей, пользователей и событий
+# Подключаем роуты для активностей и пользователей
 app.include_router(activities.router)
 app.include_router(users.router)
 

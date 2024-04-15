@@ -31,6 +31,16 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 # Route to create a new user
 @router.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    if not crud.validate_email(user.email):
+        raise HTTPException(status_code=400, detail="Invalid email address")
+
+    # Проверяем, существует ли пользователь с таким адресом электронной почты
+    existing_user = crud.get_user_by_email(db, user.email)
+    print(existing_user)
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Создаем нового пользователя
     return crud.create_user(db, user)
 
 # Route to update an existing user
