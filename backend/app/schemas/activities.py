@@ -3,6 +3,7 @@ from pydantic import BaseModel
 # Схема для входных данных активностей
 class ActivityBase(BaseModel):
     name: str
+    type_id: int
 
 # Схема для создания активностей
 class ActivityCreate(ActivityBase):

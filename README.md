@@ -1,18 +1,8 @@
 # inno-trackify
 
-To install the dependencies:
+To run service manually:
 ```
-poetry install
-```
-
-To run the backend:
-```
-poetry run uvicorn app.main:app --reload
-```
-
-To run the frontend:
-```
-poetry run streamlit run frontend/app.py
+make run
 ```
 
 ## Using Swagger UI for API Documentation

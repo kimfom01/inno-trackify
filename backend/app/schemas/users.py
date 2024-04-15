@@ -3,9 +3,9 @@ from typing import Optional
 
 # Схема для входных данных пользователя
 class UserBase(BaseModel):
+    username: str
     email: str
     password: str
-    username: str
 
 # Схема для создания пользователя
 class UserCreate(UserBase):
