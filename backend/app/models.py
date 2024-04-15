@@ -11,7 +11,7 @@ class User(Base):
     email = Column(String(50), unique=True, index=True)
     password = Column(String(100))
 
-    activities = relationship("Activity", back_populates="owner")
+    activity = relationship("Activity", back_populates="owner")
 
 
 class ActivityType(Base):
@@ -21,10 +21,10 @@ class ActivityType(Base):
     name = Column(String(50))
     icon_name = Column(String(200))
 
-    activities = relationship("Activity", back_populates="activity_type")
+    activity = relationship("Activity", back_populates="activity_type")
 
 class Activity(Base):
-    __tablename__ = "activities"
+    __tablename__ = "activity"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100))
@@ -35,5 +35,5 @@ class Activity(Base):
     end_time = Column(DateTime, default=datetime.datetime.utcnow)
     description = Column(String(2000), nullable=True)
 
-    owner = relationship("User", back_populates="activities")
-    activity_type = relationship("ActivityType", back_populates="activities")
+    owner = relationship("User", back_populates="activity")
+    activity_type = relationship("ActivityType", back_populates="activity")
