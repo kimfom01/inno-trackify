@@ -42,7 +42,7 @@ jobs:
       - name: Run flake8
         run: |
           mkdir -p ./files/${GITHUB_REF##*/}/reports/flake8
-          make lint-flake8 ARGS="--exit-zero --format=html --htmldir ./reports/flake8 --statistics --tee --output-file ./files/${GITHUB_REF##*/}/reports/flake8/flake8stats.txt"
+          make lint-flake8 ARGS="--exit-zero --format=html --htmldir ./files/${GITHUB_REF##*/}/reports/flake8 --statistics --tee --output-file ./files/${GITHUB_REF##*/}/reports/flake8/flake8stats.txt"
       - name: Install badges
         run: |
           mkdir -p ./files/${GITHUB_REF##*/}/reports/badges
