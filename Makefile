@@ -24,6 +24,6 @@ lint-black: install ## Run black linter.
 	@$(ENV_PREFIX)black -l 79 backend/ frontend/
 
 lint-flake8: install ## Run flake8 linter.
-	@$(ENV_PREFIX)flake8 backend/ frontend/
+	@$(ENV_PREFIX)flake8 backend/ frontend/ $(ARGS)
 
 lint: lint-black lint-flake8 ## Run all linters.

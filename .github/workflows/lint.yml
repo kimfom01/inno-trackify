@@ -40,4 +40,9 @@ jobs:
       - name: Run black
         run: make lint-black
       - name: Run flake8
-        run: make lint-flake8
+        run: make lint-flake8 ARGS="--exit-zero --format=html --htmldir ./reports/flake8 --statistics --tee --output-file flake8stats.txt"
+
+    # pip install genbadge[all]
+      - name: Install badges
+        run: poetry run genbadge flake8
+
