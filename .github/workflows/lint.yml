@@ -45,11 +45,13 @@ jobs:
           make lint-flake8 ARGS="--exit-zero --format=html --htmldir ./reports/flake8 --statistics --tee --output-file ./reports/flake8/flake8stats.txt"
       - name: Install badges
         run: |
-          mkdir -p ./reports/badges
-          poetry run genbadge flake8 -i ./reports/flake8/flake8stats.txt -o ./reports/badges/flake8.svg
+          mkdir -p ./reports/badges/${GITHUB_REF##*/}
+          poetry run genbadge flake8 -i ./reports/flake8/flake8stats.txt -o ./reports/badges/${GITHUB_REF##*/}/flake8.svg
 
       - name: Update GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports/badges
+          publish_dir: ./reports/badges/${GITHUB_REF##*/}
+          publish_branch: gh-pages
+          keep_files: true
