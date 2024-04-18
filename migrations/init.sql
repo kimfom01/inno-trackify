@@ -32,3 +32,27 @@ CREATE TABLE IF NOT EXISTS  "Activity_Types" (
 	ICON_NAME TEXT(200) NOT NULL,
 	CONSTRAINT Activity_Type_PK PRIMARY KEY (ID)
 );
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (1, 'Sport', 'SportLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (2, 'Health', 'HealthLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (3, 'Sleep', 'SleepLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (4, 'Study', 'StudyLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (5, 'Rest', 'RestLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (6, 'Eat', 'SportLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (7, 'Coding', 'CodingLink');
+
+INSERT OR IGNORE INTO "Activity_Types" (ID, NAME, ICON_NAME)
+VALUES (8, 'Other', 'OtherLink');
