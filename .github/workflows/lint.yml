@@ -17,6 +17,8 @@ jobs:
         python-version: [3.11]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    env:
+      branchname: "${{ github.head_ref || github.ref_name }}"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
