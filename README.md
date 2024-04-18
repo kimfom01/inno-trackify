@@ -1,3 +1,4 @@
+![Lint](https://github.com/Q-Tify/inno-trackify/actions/workflows/lint.yml/badge.svg?branch=actions)
 # inno-trackify
 
 To install the dependencies:
