@@ -1,4 +1,4 @@
-![Lint](https://github.com/github/docs/actions/workflows/lint.yml/badge.svg?branch=actions)
+![Flake8](https://github.com/github/docs/actions/workflows/lint.yml/flake8-badge.svg?branch=actions)
 # inno-trackify
 
 To install the dependencies:
