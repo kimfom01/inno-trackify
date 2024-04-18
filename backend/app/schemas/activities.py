@@ -1,3 +1,4 @@
+import datetime
 from pydantic import BaseModel
 
 # Схема для входных данных активностей
