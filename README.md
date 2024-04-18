@@ -1,4 +1,4 @@
-![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![lint](https://github.com/github/docs/actions/workflows/lint.yml/badge.svg)
 # inno-trackify
 
 To install the dependencies:
