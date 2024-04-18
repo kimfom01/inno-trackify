@@ -46,7 +46,7 @@ jobs:
       - name: Install badges
         run: |
           mkdir -p ./reports/badges
-          poetry run genbadge flake8 ./reports/flake8/flake8stats.txt -o ./reports/badges/flake8.svg
+          poetry run genbadge flake8 -i ./reports/flake8/flake8stats.txt -o ./reports/badges/flake8.svg
 
       - name: Update GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
