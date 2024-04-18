@@ -20,7 +20,10 @@ run: install
 	cd ./backend && poetry run uvicorn app.main:app --reload & 
 	poetry run streamlit run frontend/app.py
 
-lint: install ## Run pep8, black linters.
-	@$(ENV_PREFIX)flake8 backend/ frontend/ || true
-	@$(ENV_PREFIX)black -l 79 --check backend/ || true
-	@$(ENV_PREFIX)black -l 79 --check frontend/ || true
+lint-black: install ## Run black linter.
+	@$(ENV_PREFIX)black -l 79 backend/ frontend/
+
+lint-flake8: install ## Run flake8 linter.
+	@$(ENV_PREFIX)flake8 backend/ frontend/
+
+lint: lint-black lint-flake8 ## Run all linters.
