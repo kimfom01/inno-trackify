@@ -3,18 +3,18 @@ from sqlalchemy.orm import relationship
 from .database import Base
 import datetime
 
+class ActivityType(Base):
+    __tablename__ = 'Activity_Types'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    icon_name = Column(String(200))
+
 class User(Base):
     __tablename__ = 'Users'
     id = Column(Integer, primary_key=True)
     username = Column(String(100))
     email = Column(String(50))
     password = Column(String(100))
-
-class ActivityType(Base):
-    __tablename__ = 'Activity_Types'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50))
-    icon_name = Column(String(200))
 
 class Activity(Base):
     __tablename__ = 'Activity'
@@ -27,5 +27,16 @@ class Activity(Base):
     end_time = Column(String(50))
     description = Column(String(2000))
     
+    # Define the relationship between Activity and ActivityType
+    type = relationship("ActivityType")
     user = relationship("User")
-    activity_type = relationship("ActivityType")
+
+class Authentication_Keys(Base):
+    __tablename__ = "Authentication_Keys"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("Users.id"), nullable=False)
+    key = Column(String(50), nullable=False)
+    due_date = Column(String(50), nullable=False)
+
+    user = relationship("User")
