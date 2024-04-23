@@ -1,3 +1,5 @@
+![Lint](https://github.com/Q-Tify/inno-trackify/actions/workflows/lint.yml/badge.svg?branch=actions)
+[![Flake8 Status](https://q-tify.github.io/inno-trackify/main/reports/badges/flake8.svg)](https://q-tify.github.io/inno-trackify/main/reports/flake8/index.html)
 # inno-trackify
 
 To run service manually:
