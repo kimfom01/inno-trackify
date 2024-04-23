@@ -24,17 +24,6 @@ CREATE TABLE IF NOT EXISTS  Users (
 	CONSTRAINT Users_PK PRIMARY KEY (ID)
 );
 
--- Authentication_Key определение
-
-CREATE TABLE IF NOT EXISTS "Authentication_Keys" (
-	ID INTEGER NOT NULL,
-	USER_ID INTEGER NOT NULL,
-	"KEY" TEXT(50) NOT NULL,
-	DUE_DATE TEXT(50) NOT NULL,
-	CONSTRAINT Authentication_Keys_PK PRIMARY KEY (ID)
-	FOREIGN KEY (User_ID) REFERENCES Users(ID)
-);
-
 -- Activity_Types определение
 
 CREATE TABLE IF NOT EXISTS  "Activity_Types" (

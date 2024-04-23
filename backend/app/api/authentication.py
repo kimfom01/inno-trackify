@@ -7,6 +7,7 @@ from ..database import SessionLocal
 from ..crud import authentication as crud_auth
 from ..crud import users as crud_users
 from ..schemas import authentication as schemas_auth
+from ..schemas import users as schemas_users
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
@@ -20,10 +21,10 @@ def get_db():
         db.close()
 
 # Route to fetch all activities
-@router.post("/login")
+@router.post("/login", response_model=schemas_auth.Token)
 async def create_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     db = SessionLocal()
-    user = crud_auth.authenticate_user(db, form_data.username, form_data.password)
+    user = crud_auth.get_user_username_password(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=401,
@@ -34,18 +35,6 @@ async def create_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
         data={"sub": user.username}
     )
     return schemas_auth.Token(access_token=access_token, token_type="bearer")
-
-def get_token(user_id: str, token: str = Depends(oauth2_scheme),
-                     db: Session = Depends(get_db)):
-    credentials_exception = HTTPException(
-        status_code=401,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    key = crud_auth.get_key(db, user_id)
-    if token != key:
-        raise credentials_exception
-    return crud_users.get_user(db, user_id)
 
 def authenticate_user(db: Session, token: str):
     try:

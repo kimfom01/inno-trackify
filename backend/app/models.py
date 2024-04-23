@@ -30,13 +30,3 @@ class Activity(Base):
     # Define the relationship between Activity and ActivityType
     type = relationship("ActivityType")
     user = relationship("User")
-
-class Authentication_Keys(Base):
-    __tablename__ = "Authentication_Keys"
-
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("Users.id"), nullable=False)
-    key = Column(String(50), nullable=False)
-    due_date = Column(String(50), nullable=False)
-
-    user = relationship("User")
