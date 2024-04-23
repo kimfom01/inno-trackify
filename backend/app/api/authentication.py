@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import Annotated
+from jose import jwt
 from ..database import SessionLocal
 from ..crud import authentication as crud_auth
 from ..crud import users as crud_users
@@ -20,8 +21,8 @@ def get_db():
 
 # Route to fetch all activities
 @router.post("/login")
-async def create_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(SessionLocal)):
-    print("STARTED")
+async def create_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    db = SessionLocal()
     user = crud_auth.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -48,13 +49,11 @@ def get_token(user_id: str, token: str = Depends(oauth2_scheme),
 
 def authenticate_user(db: Session, token: str):
     try:
-        payload = oauth2_scheme.verify_token(token)
-        username = payload.get("sub")
+        username = crud_auth.get_username_from_token(token)
         if username is None:
             return None
 
-        # user = db.query(User).filter(User.username == username).first()
-        return crud_users.get_user_by_email(username)
+        return crud_users.get_user_by_username(db, username)
     except Exception as e:
         print(f"Error authenticating user: {e}")
         return None

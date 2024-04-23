@@ -15,6 +15,10 @@ def get_user(db: Session, user_id: int):
 def get_user_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
 
+# Функция для получения пользователя по его имени
+def get_user_by_username(db: Session, username: str):
+    return db.query(models.User).filter(models.User.username == username).first()
+
 # Функция для проверки валидности адреса электронной почты
 def validate_email(email: str):
     # Паттерн для проверки валидности адреса электронной почты

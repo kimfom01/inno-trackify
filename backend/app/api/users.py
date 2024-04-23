@@ -18,7 +18,8 @@ def get_db():
         db.close()
 
 # Dependency to get current active user
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    db = SessionLocal()
     user = authenticate_user(db, token)
     if not user:
         raise HTTPException(status_code=401,
