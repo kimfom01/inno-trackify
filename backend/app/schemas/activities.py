@@ -1,3 +1,4 @@
+import datetime
 from pydantic import BaseModel
 
 # Схема для входных данных активностей
@@ -7,7 +8,13 @@ class ActivityBase(BaseModel):
 
 # Схема для создания активностей
 class ActivityCreate(ActivityBase):
-    pass
+    user_id:int
+    start_time:str 
+    end_time:str
+    duration:str
+    description:str
+
+
 
 # Схема для обновления активностей
 class ActivityUpdate(ActivityBase):
