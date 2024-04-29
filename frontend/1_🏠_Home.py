@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from config import GIT_INFO
+from config import API_URL, GIT_INFO
 
 st.set_page_config(
     page_title="InnoTrackify",
@@ -11,21 +11,25 @@ st.set_page_config(
 
 
 def register(username, email, password):
-    url = "http://localhost:8000/register"
-    data = {"username": username, "email": email, "password": password}
+    url = f"{API_URL}/users/"
+    data = {"grant_type": "", "scope": "", "client_id": "", "client_secret": "", "username": username, "email": email, "password": password}
     response = requests.post(url, json=data)
     return response.json()
 
 
 def login(username, password):
-    url = "http://localhost:8000/login"
-    data = {"username": username, "password": password}
-    response = requests.post(url, json=data)
+    url = f"{API_URL}/login"
+    headers = {"accept": "application/json", "Content-Type": "application/x-www-form-urlencoded"}
+    data = {"grant_type": "", "username": username, "password": password, "scope": "", "client_id": "", "client_secret": ""}
+    response = requests.post(url, headers=headers, data=data)
     return response.json()
 
 
 if "session_token" not in st.session_state:
     st.session_state["session_token"] = None
+
+if "user_id" not in st.session_state:
+    st.session_state["user_id"] = None
 
 choice = st.selectbox("Login/Signup", ["Sign-up", "Login"])
 
@@ -34,22 +38,26 @@ if choice == "Login":
     password = st.text_input("Password:", type="password")
 
     if st.button("Login"):
-        result = login(username, password)
-        if result["success"]:
-            st.success(result["message"])
-            session_token = result["session_token"]
-            st.session_state["session_token"] = session_token
+        response = login(username, password)
+        if "access_token" in response:
+            print(response)
+            session_token = response["access_token"]
+            st.session_state['session_token'] = session_token
+            st.session_state["user_id"] = response["client_id"]
+
             # Redirect to another page or perform other actions
+            st.success("Login success. Now you can access other pages.")
         else:
-            st.error(result["message"])
+            st.error(respons["detail"])
 else:
     username = st.text_input("Username:")
     email = st.text_input("Email:")
     password = st.text_input("Password:", type="password")
 
     if st.button("Sign up"):
-        result = register(username, email, password)
-        if result["success"]:
-            st.success(result["message"])
+        response = register(username, email, password)
+        
+        if "id" in response:
+            st.success("You're officially registered. Go to login page.")
         else:
-            st.error(result["message"])
+            st.error(response["detail"])
